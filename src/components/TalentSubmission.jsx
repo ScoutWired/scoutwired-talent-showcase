@@ -20,7 +20,7 @@ import {
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { InfoIcon } from 'lucide-react';
 
-const MAX_FILE_SIZE = 100 * 1024 * 1024 * 1024; // 100GB
+const MAX_FILE_SIZE = 100 * 1000 * 1000 ; // 100MB
 
 const TalentSubmission = () => {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -68,7 +68,7 @@ const TalentSubmission = () => {
     }
 
     if (videoFile.size > MAX_FILE_SIZE) {
-      setFileSizeError(`File size exceeds 100GB limit. Please choose a smaller file.`);
+      setFileSizeError(`File size exceeds 100MB limit. Please choose a smaller file.`);
       return;
     }
 
@@ -106,7 +106,7 @@ const TalentSubmission = () => {
     const file = e.target.files[0];
     if (file) {
       if (file.size > MAX_FILE_SIZE) {
-        setFileSizeError(`File size exceeds 100GB limit. Please choose a smaller file.`);
+        setFileSizeError(`File size exceeds 100MB limit. Please choose a smaller file.`);
         setVideoFile(null);
         setVideoPreviewUrl(null);
       } else {
@@ -125,7 +125,7 @@ const TalentSubmission = () => {
         <InfoIcon className="h-4 w-4" />
         <AlertTitle>File Size Limit</AlertTitle>
         <AlertDescription>
-          Please note that the maximum allowed file size is 100GB. Larger files will be rejected.
+          Please note that the maximum allowed file size is 100MB. Larger files will be rejected.
         </AlertDescription>
       </Alert>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -159,7 +159,7 @@ const TalentSubmission = () => {
         </div>
 
         <div>
-          <Label htmlFor="video">Upload Your Video (Max 100GB)</Label>
+          <Label htmlFor="video">Upload Your Video (Max 100MB)</Label>
           <Input id="video" type="file" accept="video/*" onChange={handleVideoUpload} required />
           {fileSizeError && <p className="text-red-500 text-sm mt-1">{fileSizeError}</p>}
           {videoPreviewUrl && (

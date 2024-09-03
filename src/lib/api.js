@@ -19,10 +19,10 @@ export const submitTalent = async (formData) => {
       const text = await response.text();
       console.error('Received non-JSON response:', text);
       if (response.status === 413) {
-        throw new Error('File size too large. The server cannot accept files larger than 100GB. Please try uploading a smaller file.');
+        throw new Error('File size too large. The server cannot accept files larger than 100MB. Please try uploading a smaller file.');
       }
       if (text.includes("413 Request Entity Too Large")) {
-        throw new Error('File size too large. The server cannot accept files larger than 100GB. Please try uploading a smaller file.');
+        throw new Error('File size too large. The server cannot accept files larger than 100MB. Please try uploading a smaller file.');
       }
       throw new Error(`Unexpected server response. Please try again later or contact support if the issue persists.`);
     }

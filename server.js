@@ -5,31 +5,28 @@ import multer from 'multer';
 import { BlobServiceClient } from '@azure/storage-blob';
 import { ClientSecretCredential } from '@azure/identity';
 import { Client } from '@microsoft/microsoft-graph-client';
-import { TokenCredentialAuthenticationProvider } from '@microsoft/microsoft-graph-client/authProviders/azureTokenCredentials/index.js';
+import { TokenCredentialAuthenticationProvider } from '@microsoft/microsoft-graph-client/authProviders/azureTokenCredentials';
 
 const app = express();
-const port = process.env.PORT || 3001;
+const port = 3001;
 
 app.use(cors());
 app.use(express.json());
 
-// Increase the payload size limit to 100GB
-app.use(express.json({ limit: '100gb' }));
-app.use(express.urlencoded({ limit: '100gb', extended: true }));
-
 const pool = new pg.Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false
-  }
+  user: 'your_username',
+  host: 'your_host',
+  database: 'your_database_name',
+  password: 'your_password',
+  port: 5432,
 });
 
 // SharePoint configuration
-const tenantId = process.env.TENANT_ID;
-const clientId = process.env.CLIENT_ID;
-const clientSecret = process.env.CLIENT_SECRET;
-const siteId = process.env.SHAREPOINT_SITE_ID;
-const driveId = process.env.SHAREPOINT_DRIVE_ID;
+const tenantId = 'your_tenant_id';
+const clientId = 'your_client_id';
+const clientSecret = 'your_client_secret';
+const siteId = 'your_sharepoint_site_id';
+const driveId = 'your_sharepoint_drive_id';
 
 const credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
 const authProvider = new TokenCredentialAuthenticationProvider(credential, {
@@ -39,11 +36,7 @@ const authProvider = new TokenCredentialAuthenticationProvider(credential, {
 const graphClient = Client.initWithMiddleware({ authProvider });
 
 // Multer configuration for file uploads
-const storage = multer.memoryStorage();
-const upload = multer({
-  storage: storage,
-  limits: { fileSize: 100 * 1024 * 1024 * 1024 } // 100GB limit
-});
+const upload = multer({ storage: multer.memoryStorage() });
 
 app.get('/api/submissions', async (req, res) => {
   try {
