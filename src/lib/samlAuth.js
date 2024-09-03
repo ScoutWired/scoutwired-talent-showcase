@@ -2,9 +2,9 @@ import * as msal from "@azure/msal-browser";
 
 export const msalConfig = {
   auth: {
-    clientId: "1a145faa-8512-42f0-9093-8eeac38b3dcd",
-    authority: "https://login.microsoftonline.com/39016543-378f-4dc5-b626-832db78c9f85",
-    redirectUri: "https://gottalent.scoutwired.org/auth-redirect",
+    clientId: "YOUR_CLIENT_ID",
+    authority: "https://login.microsoftonline.com/YOUR_TENANT_ID",
+    redirectUri: "http://localhost:5173/auth-redirect",
   },
   cache: {
     cacheLocation: "sessionStorage",
