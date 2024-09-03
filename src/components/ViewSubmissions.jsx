@@ -87,6 +87,7 @@ const ViewSubmissions = () => {
             <CardContent className="flex-grow">
               <p className="mb-2"><strong>Talent:</strong> {submission.talent_description}</p>
               <p className="mb-4"><strong>Discord:</strong> {submission.discord_username}</p>
+              <p className="mb-4"><strong>Video Url:</strong> submission.video_url</p>
               <video src={getVideoUrl(submission.id)} controls className="w-full h-48 object-cover rounded-md" />
               <p className="mt-2 text-sm text-gray-500">Submitted on: {new Date(submission.created_at).toLocaleString()}</p>
             </CardContent>
